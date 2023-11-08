@@ -1,17 +1,16 @@
 package com.devmountain.noteApp.controllers;
 
 import com.devmountain.noteApp.dtos.UserDto;
+import com.devmountain.noteApp.entities.User;
 import com.devmountain.noteApp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping("/api/v1/users")
 public class UserController {
     @Autowired
@@ -19,10 +18,12 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("/register")
-    public List<String> addUser(@RequestBody UserDto userDto){
+    public User addUser(@RequestBody UserDto userDto){
         String passHash = passwordEncoder.encode(userDto.getPassword());
         userDto.setPassword(passHash);
+        System.out.print(" col besseder ***************** ");
         return userService.addUser(userDto);
     }
 

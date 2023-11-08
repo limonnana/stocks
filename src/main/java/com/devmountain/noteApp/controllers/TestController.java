@@ -2,12 +2,11 @@ package com.devmountain.noteApp.controllers;
 
 import com.devmountain.noteApp.dtos.NoteDto;
 import com.devmountain.noteApp.dtos.ShareDto;
+import com.devmountain.noteApp.dtos.UserDto;
 import com.devmountain.noteApp.entities.Share;
 import com.devmountain.noteApp.services.ShareService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
@@ -38,6 +37,13 @@ public class TestController {
         ShareDto shareDto = new ShareDto(share);
         share = shareService.addShare(shareDto);
         return share;
+    }
+
+    @PostMapping("/hola")
+    public String hola(@RequestBody String saludo){
+      System.out.print(saludo + "*************************** hola *********************");
+
+      return saludo +  "? ";
     }
 
 
