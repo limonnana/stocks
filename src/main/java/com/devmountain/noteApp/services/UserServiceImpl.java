@@ -28,21 +28,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<String> userLogin(UserDto userDto) {
+    public Optional<User> userLogin(UserDto userDto) {
+        boolean isLogged = false;
         List<String> response = new ArrayList<>();
         Optional<User> userOptional = userRepository.findByUsername(userDto.getUsername());
 
         if (userOptional.isPresent()) {
             if (passwordEncoder.matches(userDto.getPassword(), userOptional.get().getPassword())) {
-                response.add("http://localhost:8080/home.html");
                 response.add(String.valueOf(userOptional.get().getId()));
+                isLogged = true;
             } else {
                 response.add("Username or the Password is incorrect");
             }
         } else {
             response.add("Username or the Password is incorrect");
         }
-        return response;
+        if(isLogged){
+            return userOptional;
+        }else{
+            return null;
+        }
+
+    }
+
+    @Override
+    public List<User> getUsers() {
+        List<User> users = userRepository.findAll();
+        return users;
     }
 }
 

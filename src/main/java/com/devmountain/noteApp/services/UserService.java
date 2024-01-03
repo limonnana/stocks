@@ -5,10 +5,13 @@ import com.devmountain.noteApp.entities.User;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     @Transactional
     User addUser(UserDto userDto);
 
-    List<String> userLogin(UserDto userDto);
+    Optional<User> userLogin(UserDto userDto);
+
+    List<User> getUsers();
 }
